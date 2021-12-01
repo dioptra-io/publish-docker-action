@@ -18,9 +18,10 @@ jobs:
 
 ### Inputs
 
-Name       | Default
------------|--------
-`image`    | `${{ github.repository }}`
-`registry` | `ghcr.io`
-`username` | `${{ github.actor }}`
-`password` | None
+Name        | Default
+------------|--------
+`image`     | `${{ github.repository }}`
+`registry`  | `ghcr.io`
+`username`  | `${{ github.actor }}`
+`password`  | None
+`platforms` | `linux/amd64`
