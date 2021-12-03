@@ -2,6 +2,10 @@ name: 'Build and push Docker image'
 description: 'Composite action to build and push a Docker image to a registry.'
 
 inputs:
+  file:
+    description: "Path to the Dockerfile"
+    required: true
+    default: ./Dockerfile
   image:
     description: "Name of the Docker image"
     required: true
@@ -45,6 +49,7 @@ runs:
       with:
         context: .
         push: true
+        file: ${{ inputs.file }}
         platforms: ${{ inputs.platforms }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
