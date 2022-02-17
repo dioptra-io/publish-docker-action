@@ -20,6 +20,7 @@ jobs:
 
 Name        | Default
 ------------|--------
+`context`   | `.`
 `image`     | `${{ github.repository }}`
 `registry`  | `ghcr.io`
 `username`  | `${{ github.actor }}`
