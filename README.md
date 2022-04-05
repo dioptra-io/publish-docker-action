@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: dioptra-io/publish-docker-action@v1.3
+      - uses: dioptra-io/publish-docker-action@v1.4
         with:
           password: ${{ secrets.GITHUB_TOKEN }}
 ```
