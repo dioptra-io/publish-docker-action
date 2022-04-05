@@ -29,6 +29,10 @@ inputs:
     description: "Target platforms for the Docker image"
     required: true
     default: linux/amd64
+  push:
+    description: "Whether or not to push the image to the registry"
+    required: true
+    default: true
 
 runs:
   using: "composite"
@@ -52,7 +56,7 @@ runs:
     - uses: docker/build-push-action@v2
       with:
         context: ${{ inputs.context }}
-        push: true
+        push: ${{ inputs.push }}
         file: ${{ inputs.file }}
         platforms: ${{ inputs.platforms }}
         tags: ${{ steps.meta.outputs.tags }}

@@ -26,3 +26,4 @@ Name        | Default
 `username`  | `${{ github.actor }}`
 `password`  | None
 `platforms` | `linux/amd64`
+`push`      | `true`
