@@ -48,14 +48,15 @@ runs:
           type=ref,event=pr
           type=semver,pattern={{version}}
           type=semver,pattern={{major}}.{{minor}}
+    # (A) push = true => push image and cache to registry
     - uses: docker/login-action@v1
+      if: ${{ inputs.push == 'true' }}
       with:
         registry: ${{ inputs.registry }}
         username: ${{ inputs.username }}
         password: ${{ inputs.password }}
-    # (A) push = true => push image and cache to registry
     - uses: docker/build-push-action@v2
-      if: ${{ inputs.push }}
+      if: ${{ inputs.push == 'true' }}
       with:
         push: true
         context: ${{ inputs.context }}
@@ -67,7 +68,7 @@ runs:
         cache-to: type=registry,ref=${{ inputs.registry }}/${{ inputs.image }}:buildcache,mode=max
     # (B) push = false => do not push image or cache to registry
     - uses: docker/build-push-action@v2
-      if: ${{ ! inputs.push }}
+      if: ${{ inputs.push != 'true' }}
       with:
         push: false
         context: ${{ inputs.context }}
