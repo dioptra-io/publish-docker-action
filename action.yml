@@ -53,13 +53,25 @@ runs:
         registry: ${{ inputs.registry }}
         username: ${{ inputs.username }}
         password: ${{ inputs.password }}
+    # (A) push = true => push image and cache to registry
     - uses: docker/build-push-action@v2
+      if: ${{ inputs.push }}
       with:
+        push: true
         context: ${{ inputs.context }}
-        push: ${{ inputs.push }}
         file: ${{ inputs.file }}
         platforms: ${{ inputs.platforms }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         cache-from: type=registry,ref=${{ inputs.registry }}/${{ inputs.image }}:buildcache
         cache-to: type=registry,ref=${{ inputs.registry }}/${{ inputs.image }}:buildcache,mode=max
+    # (B) push = false => do not push image or cache to registry
+    - uses: docker/build-push-action@v2
+      if: ${{ ! inputs.push }}
+      with:
+        push: false
+        context: ${{ inputs.context }}
+        file: ${{ inputs.file }}
+        platforms: ${{ inputs.platforms }}
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
